@@ -25,11 +25,14 @@ def sample(fname:str):
     key, talks = tbl.get_one_key("ted-talks")
     print("=" * 20)
     for item in talks:
-        #print(item, end=" <<<\n\n")
         a_id, a_key, a_mark, a_title = item["Id"], item["Key"], item["Mark"], item["Title"]
+        if a_id <= 0:
+            continue
         url = key[key.index("=")+1:].replace("$1", a_key)
         who = get_who(tbl, a_id)
         xtra = f"By: {who}\n" if who else ""
+        if a_mark is None:
+            a_mark = "-"
         print(f"""
 <li>{a_id:<6} {a_mark:<20} <a href="{url}" _target="_blank">{a_title}</a>
 {xtra}</li>
