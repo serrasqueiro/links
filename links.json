@@ -1,0 +1,8 @@
+{
+  "ted-talks=https://www.ted.com/talks/$1": [
+    {
+      "Id": 1001,
+      "Key": "ashley_whillans_3_rules_for_better_work_life_balance"
+    }
+  ]
+}
