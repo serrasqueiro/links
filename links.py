@@ -9,15 +9,21 @@ Sample work using zson Python library
 
 from zson.idtable import IdTable
 
+REWRITE = 0
+JSON_FNAME = "links.json"
+
 
 def main():
-    sample("links.json")
+    sample(JSON_FNAME, {"re-write": REWRITE})
 
 
-def sample(fname:str):
+def sample(fname:str, opts:dict):
     tbl = IdTable(encoding="iso-8859-1")
     tbl.load(fname)
     print(tbl.dump())
+    if opts["re-write"]:
+        is_ok = tbl.save(fname + "~")
+        return is_ok
     refs = tbl.get_one("ted-talks-info")
     assert refs
     is_ok = tbl.index("ted-talks-info")
@@ -38,6 +44,7 @@ def sample(fname:str):
 {xtra}</li>
 """)
     print("=" * 20)
+    return True
 
 
 def get_who(tbl:IdTable, a_id:int) -> str:
