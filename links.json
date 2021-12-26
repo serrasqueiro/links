@@ -1,8 +1,33 @@
 {
+  "!links.json": [
+    {
+      "Id": 0,
+      "Key": null,
+      "Mark": null,
+      "Title": "Links of interest"
+    }
+  ],
   "ted-talks=https://www.ted.com/talks/$1": [
     {
       "Id": 1001,
-      "Key": "ashley_whillans_3_rules_for_better_work_life_balance"
+      "Key": "ashley_whillans_3_rules_for_better_work_life_balance",
+      "Mark": "2021-12-26",
+      "Title": "3 rules for better work-life balance"
+    }
+  ],
+  "ted-talks-info": [
+    {
+      "Id": 1001,
+      "Speakers": "Ashley Whillans",
+      "Category": "The Way We Work"
+    }
+  ],
+  "~": [
+    {
+      "Id": -1,
+      "Key": "*",
+      "Mark": null,
+      "Title": ""
     }
   ]
 }

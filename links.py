@@ -1,0 +1,53 @@
+#-*- coding: utf-8 -*-
+# links.py  (c)2021  Henrique Moreira
+
+"""
+Sample work using zson Python library
+"""
+
+# pylint: disable=missing-function-docstring
+
+from zson.idtable import IdTable
+
+
+def main():
+    sample("links.json")
+
+
+def sample(fname:str):
+    tbl = IdTable(encoding="iso-8859-1")
+    tbl.load(fname)
+    print(tbl.dump())
+    refs = tbl.get_one("ted-talks-info")
+    assert refs
+    is_ok = tbl.index("ted-talks-info")
+    assert is_ok
+    key, talks = tbl.get_one_key("ted-talks")
+    print("=" * 20)
+    for item in talks:
+        #print(item, end=" <<<\n\n")
+        a_id, a_key, a_mark, a_title = item["Id"], item["Key"], item["Mark"], item["Title"]
+        url = key[key.index("=")+1:].replace("$1", a_key)
+        who = get_who(tbl, a_id)
+        xtra = f"By: {who}\n" if who else ""
+        print(f"""
+<li>{a_id:<6} {a_mark:<20} <a href="{url}" _target="_blank">{a_title}</a>
+{xtra}</li>
+""")
+    print("=" * 20)
+
+
+def get_who(tbl:IdTable, a_id:int) -> str:
+    try:
+        item = tbl.get_by_key("ted-talks-info", a_id)
+    except KeyError:
+        item = None
+    if not item:
+        return ""
+    who = item["Speakers"]
+    return who
+
+
+# Main script
+if __name__ == "__main__":
+    main()
