@@ -12,6 +12,7 @@ from zson.zdict import ZDict
 
 REWRITE = 0
 JSON_FNAME = "links.json"
+IO_ENCODING = "ISO-8859-1"
 
 BY_ORDER = (
     "!",
@@ -24,8 +25,9 @@ def main():
     sample(JSON_FNAME, {"re-write": REWRITE})
 
 
-def sample(fname:str, opts:dict):
-    tbl = IdTable(encoding="iso-8859-1")
+def sample(fname:str, opts:dict) -> bool:
+    encoding = IO_ENCODING
+    tbl = IdTable(encoding=encoding)
     tbl.load(fname)
     new = NewDict(tbl.get(), name="links")
     tbl.inject(new)
@@ -35,6 +37,7 @@ def sample(fname:str, opts:dict):
     if opts["re-write"]:
         is_ok = tbl.save(fname + "~")
         return is_ok
+    infos = build_infos(open(fname, "r", encoding=encoding).read(), fname, tbl)
     refs = tbl.get_one("ted-talks-info")
     assert refs
     is_ok = tbl.index("ted-talks-info")
@@ -55,7 +58,10 @@ def sample(fname:str, opts:dict):
 {xtra}</li>
 """)
     print("=" * 20)
-    return True
+    same_content = infos["same-content"]
+    if not same_content:
+        print(f'Warn: {fname}: the same content! File size: {infos["file-size"]}, Dump size: {infos["dump-size"]}')
+    return same_content
 
 
 def get_who(tbl:IdTable, a_id:int) -> str:
@@ -67,6 +73,15 @@ def get_who(tbl:IdTable, a_id:int) -> str:
         return ""
     who = item["Speakers"]
     return who
+
+
+def build_infos(data:str, fname:str, tbl) -> dict:
+    infos = {
+        "same-content": data == tbl.dump() + "\n",
+        "dump-size": len(tbl.dump() + "\n"),
+        "file-size": len(data),
+    }
+    return infos
 
 
 class NewDict(ZDict):
