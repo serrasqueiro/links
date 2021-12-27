@@ -47,6 +47,46 @@
       "Speakers": ""
     }
   ],
+  "curiosity-stream=https://curiositystream.com/video/$1": [
+    {
+      "Id": 5001,
+      "Key": "1000",
+      "Mark": "2021-12-27",
+      "Title": "Knights - Part 1: Men In Iron"
+    },
+    {
+      "Id": 5002,
+      "Key": "1001",
+      "Mark": "2021-12-27",
+      "Title": "Knights - Part 2: For Fame and Honor"
+    },
+    {
+      "Id": 5003,
+      "Key": "1002",
+      "Mark": "2021-12-27",
+      "Title": "Knights - Part 3: The Last of Their Kind"
+    },
+    {
+      "Id": 0,
+      "Key": "",
+      "Mark": null,
+      "Title": ""
+    }
+  ],
+  "curiosity-stream-info": [
+    {
+      "CaDate": null,
+      "Id": 5001,
+      "Category": "History",
+      "Speakers": ""
+    },
+    {
+      "CaDate": null,
+      "Id": 0,
+      "Category": "",
+      "Speakers": ""
+    }
+  ],
   "~": [
     {
       "Id": -1,
