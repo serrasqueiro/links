@@ -8,9 +8,16 @@ Sample work using zson Python library
 # pylint: disable=missing-function-docstring
 
 from zson.idtable import IdTable
+from zson.zdict import ZDict
 
 REWRITE = 0
 JSON_FNAME = "links.json"
+
+BY_ORDER = (
+    "!",
+    "ted-talks=",
+    "ted-talks-info",
+)
 
 
 def main():
@@ -20,6 +27,10 @@ def main():
 def sample(fname:str, opts:dict):
     tbl = IdTable(encoding="iso-8859-1")
     tbl.load(fname)
+    new = NewDict(tbl.get(), name="links")
+    tbl.inject(new)
+    tbl.dump_sort(False)  # customized sort
+    # Now dump
     print(tbl.dump())
     if opts["re-write"]:
         is_ok = tbl.save(fname + "~")
@@ -56,6 +67,23 @@ def get_who(tbl:IdTable, a_id:int) -> str:
         return ""
     who = item["Speakers"]
     return who
+
+
+class NewDict(ZDict):
+    """ Customized dictionary """
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+
+    def items(self) -> list:
+        by_key = []
+        for substr in BY_ORDER:
+            for key in sorted(self.get_dict()):
+                if key.startswith(substr) and key not in by_key:
+                    by_key.append(key)
+        for key in sorted(self.get_dict()):
+            if key not in by_key:
+                by_key.append(key)
+        return self._items(str, by_key)
 
 
 # Main script
