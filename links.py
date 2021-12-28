@@ -16,6 +16,8 @@ IO_ENCODING = "ISO-8859-1"
 
 BY_ORDER = (
     "!",
+    "youtube-cool=",
+    "youtube-cool-info",
     "ted-talks=",
     "ted-talks-info",
     "curiosity-stream=",
@@ -51,7 +53,7 @@ def sample(fname:str, opts:dict) -> bool:
     print("=" * 20)
     same_content = infos["same-content"]
     if not same_content:
-        print(f'Warn: {fname}: the same content! File size: {infos["file-size"]}, Dump size: {infos["dump-size"]}')
+        print(f'Warn: {fname}: not the same content! File size: {infos["file-size"]}, Dump size: {infos["dump-size"]}')
     return same_content
 
 

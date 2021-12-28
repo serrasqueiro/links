@@ -7,6 +7,34 @@
       "Title": "Links of interest"
     }
   ],
+  "youtube-cool=https://www.youtube.com/watch?v=$1": [
+    {
+      "Id": 1001,
+      "Key": "ZqeZdumu2fg",
+      "Mark": "2021-12-28",
+      "Title": "Classical Composer Reacts to Thick As A Brick - Part 1"
+    },
+    {
+      "Id": 0,
+      "Key": "",
+      "Mark": null,
+      "Title": ""
+    }
+  ],
+  "youtube-cool-info": [
+    {
+      "CaDate": null,
+      "Id": 1001,
+      "Category": "Music-Comment",
+      "Speakers": "R. Douglas Helvering"
+    },
+    {
+      "CaDate": "",
+      "Id": 0,
+      "Category": "",
+      "Speakers": ""
+    }
+  ],
   "ted-talks=https://www.ted.com/talks/$1": [
     {
       "Id": 1001,
