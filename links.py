@@ -33,12 +33,15 @@ def sample(fname:str, opts:dict) -> bool:
     encoding = IO_ENCODING
     tbl = IdTable(encoding=encoding)
     tbl.load(fname)
+    # TEST - even if key is not ordered alphabetically, result is!
+    #tbl._table["~"].append({"Id": 7, "Key": "Seven", "Title": "What", "Case": "sample"})
+    ###
     new = NewDict(tbl.get(), name="links")
     tbl.inject(new)
     tbl.dump_sort(False)  # customized sort
     # Now dump
     print(tbl.dump())
-    if opts["re-write"]:
+    if int(opts["re-write"]) == 1:
         is_ok = tbl.save(fname + "~")
         return is_ok
     infos = build_infos(open(fname, "r", encoding=encoding).read(), tbl)
@@ -53,7 +56,8 @@ def sample(fname:str, opts:dict) -> bool:
     print("=" * 20)
     same_content = infos["same-content"]
     if not same_content:
-        print(f'Warn: {fname}: not the same content! File size: {infos["file-size"]}, Dump size: {infos["dump-size"]}')
+        print(f'Warn: {fname}: not the same content!',
+              f'File size: {infos["file-size"]}, Dump size: {infos["dump-size"]}')
     return same_content
 
 
@@ -116,6 +120,7 @@ class NewDict(ZDict):
     """ Customized dictionary """
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
+        self._re_class()
 
     def items(self) -> list:
         by_key = []
@@ -127,6 +132,14 @@ class NewDict(ZDict):
             if key not in by_key:
                 by_key.append(key)
         return self._items(str, by_key)
+
+    def _re_class(self):
+        data = self._data
+        cont = {}
+        for key, alist in data.items():
+            cont[key] = [ZDict(elem) for elem in alist]
+        for key in data:
+            data[key] = cont[key]
 
 
 # Main script
