@@ -32,7 +32,10 @@ def main():
 def sample(fname:str, opts:dict) -> bool:
     encoding = IO_ENCODING
     tbl = IdTable(encoding=encoding)
-    tbl.load(fname)
+    is_ok = tbl.load(fname)
+    if not is_ok:
+        print("Cannot read:", fname)
+        return False
     # TEST - even if key is not ordered alphabetically, result is!
     #tbl._table["~"].append({"Id": 7, "Key": "Seven", "Title": "What", "Case": "sample"})
     ###
