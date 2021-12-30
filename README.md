@@ -1,4 +1,4 @@
-# [links](https://gist.github.com/serrasqueiro/e9a6299636e40ca20c370b26c4b17830)
+# [links](https://github.com/serrasqueiro/links)
 Set the appropriate path to *zson* python package
 - Windows,
   + e.g. `set PYTHONPATH=../../../anaceo/clonadas/src/packages`
@@ -9,6 +9,6 @@ Run links.py, python script:
 - `python links.py`
 
 # Update links package
-- `git clone git@gist.github.com:e9a6299636e40ca20c370b26c4b17830.git`
+- `git clone git@github.com:serrasqueiro/links.git`
 - change links.json as you wish
 - `git commit -a -m "Update"; git push`
