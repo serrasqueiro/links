@@ -49,6 +49,12 @@
       "Title": "Blood, concrete, and dynamite: Building the Hoover Dam"
     },
     {
+      "Id": 1003,
+      "Key": "anna_rosling_ronnlund_see_how_the_rest_of_the_world_lives_organized_by_income",
+      "Mark": "2021-12-30",
+      "Title": "See how the rest of the world lives, organized by income"
+    },
+    {
       "Id": 0,
       "Key": "",
       "Mark": null,
@@ -67,6 +73,12 @@
       "Category": "TED-Ed",
       "Id": 1002,
       "Speakers": "Alex Gendler"
+    },
+    {
+      "CaDate": "2017-Apr",
+      "Category": "Humanity",
+      "Id": 1003,
+      "Speakers": "Anna Rosling Rönnlund"
     },
     {
       "CaDate": "",

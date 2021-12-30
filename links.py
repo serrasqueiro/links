@@ -7,6 +7,7 @@ Sample work using zson Python library
 
 # pylint: disable=missing-function-docstring
 
+import sys
 from zson.idtable import IdTable
 from zson.zdict import ZDict
 
@@ -24,13 +25,29 @@ BY_ORDER = (
     "curiosity-stream-info",
 )
 
+BY_ORDER_AUTHORS = (
+    "!",
+    "ted-speakers",
+)
+
 
 def main():
-    sample(JSON_FNAME, {"re-write": REWRITE})
+    parse_args(sys.argv[1:])
+
+
+def parse_args(args):
+    if args:
+        io_file = args[0]
+        assert len(args) == 1
+    else:
+        io_file = JSON_FNAME
+    byorder = BY_ORDER if "links" in io_file else BY_ORDER_AUTHORS
+    sample(io_file, {"re-write": REWRITE, "byorder": byorder})
 
 
 def sample(fname:str, opts:dict) -> bool:
     encoding = IO_ENCODING
+    byorder = opts["byorder"]
     tbl = IdTable(encoding=encoding)
     is_ok = tbl.load(fname)
     if not is_ok:
@@ -39,18 +56,19 @@ def sample(fname:str, opts:dict) -> bool:
     # TEST - even if key is not ordered alphabetically, result is!
     #tbl._table["~"].append({"Id": 7, "Key": "Seven", "Title": "What", "Case": "sample"})
     ###
-    new = NewDict(tbl.get(), name="links")
+    new = NewDict(byorder, tbl.get(), name="links")
     tbl.inject(new)
     tbl.dump_sort(False)  # customized sort
+    tbl.ensure_ascii(False)	# allow e.g. ISO-8859-1 chars (Latin-1)
     # Now dump
     print(tbl.dump())
     if int(opts["re-write"]) == 1:
-        is_ok = tbl.save(fname + "~")
+        is_ok = tbl.save(fname, ensure_ascii=False)
         return is_ok
     infos = build_infos(open(fname, "r", encoding=encoding).read(), tbl)
     print("=" * 20)
     subitems = []
-    for subitem in BY_ORDER:
+    for subitem in byorder:
         if subitem.endswith("="):
             subitem = subitem[:-1]
             subitems.append((subitem, subitem + "-info"))
@@ -121,13 +139,14 @@ def build_infos(data:str, tbl) -> dict:
 
 class NewDict(ZDict):
     """ Customized dictionary """
-    def __init__(self, *args, **kwargs):
+    def __init__(self, byorder:tuple, *args, **kwargs):
         super().__init__(*args, **kwargs)
+        self._byorder = byorder
         self._re_class()
 
     def items(self) -> list:
         by_key = []
-        for substr in BY_ORDER:
+        for substr in self._byorder:
             for key in sorted(self.get_dict()):
                 if key.startswith(substr) and key not in by_key:
                     by_key.append(key)

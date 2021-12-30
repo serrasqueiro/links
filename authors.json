@@ -1,0 +1,32 @@
+{
+  "!authors.json": [
+    {
+      "Id": 0,
+      "Key": null,
+      "Mark": null,
+      "Title": "TED Talk authors"
+    }
+  ],
+  "ted-speakers=https://www.ted.com/speakers/$1": [
+    {
+      "Id": 1001,
+      "Key": "anna_rosling_ronnlund",
+      "Mark": "2021-12-30",
+      "Title": "Anna Rosling Rönnlund"
+    },
+    {
+      "Id": 0,
+      "Key": "",
+      "Mark": null,
+      "Title": ""
+    }
+  ],
+  "~": [
+    {
+      "Id": -1,
+      "Key": "*",
+      "Mark": null,
+      "Title": ""
+    }
+  ]
+}
