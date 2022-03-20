@@ -9,7 +9,8 @@ Sample work using zson Python library
 
 import sys
 from zson.idtable import IdTable
-from zson.zdict import ZDict
+from zson.znewdict import NewDict
+
 
 REWRITE = 0
 JSON_FNAME = "links.json"
@@ -135,33 +136,6 @@ def build_infos(data:str, tbl) -> dict:
         "file-size": len(data),
     }
     return infos
-
-
-class NewDict(ZDict):
-    """ Customized dictionary """
-    def __init__(self, byorder:tuple, *args, **kwargs):
-        super().__init__(*args, **kwargs)
-        self._byorder = byorder
-        self._re_class()
-
-    def items(self) -> list:
-        by_key = []
-        for substr in self._byorder:
-            for key in sorted(self.get_dict()):
-                if key.startswith(substr) and key not in by_key:
-                    by_key.append(key)
-        for key in sorted(self.get_dict()):
-            if key not in by_key:
-                by_key.append(key)
-        return self._items(str, by_key)
-
-    def _re_class(self):
-        data = self._data
-        cont = {}
-        for key, alist in data.items():
-            cont[key] = [ZDict(elem) for elem in alist]
-        for key in data:
-            data[key] = cont[key]
 
 
 # Main script
