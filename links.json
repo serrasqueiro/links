@@ -55,6 +55,12 @@
       "Title": "See how the rest of the world lives, organized by income"
     },
     {
+      "Id": 1004,
+      "Key": "garry_kasparov_stand_with_ukraine_in_the_fight_against_evil",
+      "Mark": "2022-04-30",
+      "Title": "Stand with Ukraine in the fight against evil"
+    },
+    {
       "Id": 0,
       "Key": "",
       "Mark": null,
@@ -79,6 +85,12 @@
       "Category": "Humanity",
       "Id": 1003,
       "Speakers": "Anna Rosling Rönnlund"
+    },
+    {
+      "CaDate": "2022-Apr",
+      "Category": "Global",
+      "Id": 1004,
+      "Speakers": "Garry Kasparov"
     },
     {
       "CaDate": "",
