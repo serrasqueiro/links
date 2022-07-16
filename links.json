@@ -67,6 +67,12 @@
       "Title": "Stand with Ukraine in the fight against evil"
     },
     {
+      "Id": 1005,
+      "Key": "sheperd_doeleman_inside_the_black_hole_image_that_made_history",
+      "Mark": "2022-07-16",
+      "Title": "Inside the black hole image that made history"
+    },
+    {
       "Id": 0,
       "Key": "",
       "Mark": null,
@@ -97,6 +103,12 @@
       "Category": "Global",
       "Id": 1004,
       "Speakers": "Garry Kasparov"
+    },
+    {
+      "CaDate": "2019-Nov",
+      "Category": "Astrophisics",
+      "Id": 1005,
+      "Speakers": "Sheperd Doeleman"
     },
     {
       "CaDate": "",

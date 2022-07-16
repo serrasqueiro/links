@@ -57,34 +57,50 @@ def do_test(fname:str, opts=None) -> bool:
     there = alist[0]
     key, item = "", []
     talks = (None, None)
+    talk_infos = (None, None)
     for key in sorted(there):
         item = there[key]
         if verbose > 0:
             print(key, ":", item, end="\n\n")
+        else:
+            print("# KEY:", key)
         if key.startswith("ted-talks="):
             assert talks[0] is None
             talks = (key, item)
+        elif key in ("ted-talks-info"):
+            talk_infos = (key, item)
     assert key == "~", key
     assert item
     here = item[0]
     assert here["Id"] == -1
     assert here["Key"] == "*"
     assert not here["Title"]
-    show_talks(talks)
+    show_talks(talks, talk_infos)
     #tbl.save_as_list(fname + "~")
     return True
 
-def show_talks(talks):
+def show_talks(talks, talk_infos):
     print("\n# " + talks[0], end=":\n\n")
+    key, whot = talk_infos
+    idxa = {}
+    for talk in whot:
+        an_id = talk["Id"]
+        idxa[an_id] = talk
     talk = None
     for talk in talks[1]:
-        if talk["Id"] == 0:
+        an_id = talk["Id"]
+        if an_id == 0:
             continue
         print(talk, end="\n\n")
+        speaker = idxa.get(an_id)
+        assert speaker is not None, f"Could not find at 'ted-talks-info': {an_id}: {talk['Key']}"
+        assert idxa[an_id]["Speakers"]
     assert talk is not None
     assert talk["Id"] == 0
     assert not talk["Key"]
     assert not talk["Title"]
+    print("---")
+    #print(idxa)
 
 
 # Main script
